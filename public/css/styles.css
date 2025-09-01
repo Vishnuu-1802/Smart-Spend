@@ -1,0 +1,292 @@
+/* CSS Variables for easy theme management */
+:root {
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --primary-color: #007bff;
+  --primary-hover: #0056b3;
+  --background-light: #f0f8ff;
+  --text-color: #333;
+  --btn-bg: var(--primary-color);
+  --btn-bg-hover: var(--primary-hover);
+  --btn-color: #fff;
+  --container-bg: #fff;
+  --container-shadow: rgba(0, 0, 0, 0.1);
+  --border-radius: 10px;
+  --transition-speed: 0.3s;
+  --box-shadow: 0 0 15px var(--container-shadow);
+}
+
+/* Reset and base styles */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-family);
+}
+
+body {
+  background-color: var(--background-light);
+  color: var(--text-color);
+  min-height: 100vh;
+}
+
+/* Links */
+a {
+  text-decoration: none;
+  color: var(--primary-color);
+  transition: color var(--transition-speed);
+}
+a:hover,
+a:focus {
+  color: var(--primary-hover);
+  outline: none;
+}
+
+/* ---------- AUTH STYLING ---------- */
+.container {
+  max-width: 500px;
+  margin: 60px auto 0;
+  padding: 40px;
+  background-color: var(--container-bg);
+  box-shadow: var(--box-shadow);
+  border-radius: var(--border-radius);
+  transition: box-shadow var(--transition-speed);
+}
+
+.container:hover,
+.container:focus-within {
+  box-shadow: 0 0 25px rgba(0,0,0,0.15);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+/* Form inputs */
+form input[type="text"],
+form input[type="email"],
+form input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+form input[type="text"]:focus,
+form input[type="email"]:focus,
+form input[type="password"]:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 5px var(--primary-color);
+  outline: none;
+}
+
+/* Buttons */
+form button {
+  width: 100%;
+  background-color: var(--btn-bg);
+  color: var(--btn-color);
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition-speed);
+}
+
+form button:hover,
+form button:focus {
+  background-color: var(--btn-bg-hover);
+  outline: none;
+}
+
+/* Password toggle eye icon */
+.eye-icon {
+  float: right;
+  margin-top: -35px;
+  margin-right: 10px;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+
+/* Forgot password link */
+.forgot-password {
+  text-align: right;
+  margin-top: -10px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  color: var(--primary-color);
+}
+.forgot-password:hover,
+.forgot-password:focus {
+  color: var(--primary-hover);
+  outline: none;
+}
+
+/* Auth page background */
+.auth-body {
+  background-image: url("../images/bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* ---------- DASHBOARD STYLING ---------- */
+
+/* Dashboard navigation bar */
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  padding: 15px;
+  background-color: #e0f0ff;
+  border-bottom: 2px solid #ccc;
+}
+.navbar .nav-item {
+  text-align: center;
+  font-size: 14px;
+  cursor: pointer;
+  color: var(--primary-color);
+  user-select: none;
+  transition: color var(--transition-speed), font-weight var(--transition-speed);
+}
+.navbar .nav-item i {
+  font-size: 20px;
+  display: block;
+  margin-bottom: 5px;
+  color: var(--primary-color);
+}
+.navbar .nav-item.active {
+  font-weight: 700;
+  color: var(--primary-hover);
+}
+
+/* Dashboard sections */
+.section {
+  display: none; /* hide all by default */
+  padding: 20px;
+  margin: 20px;
+  background-color: var(--container-bg);
+  border-radius: var(--border-radius);
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+.section.active {
+  display: block !important;
+}
+
+.chart-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.profile-avatar {
+  display: block;
+  margin: 0 auto 15px;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border: 3px solid var(--primary-color);
+}
+
+/* --- New Auth UI Enhancements --- */
+.auth-page {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 50px;
+  min-height: 100vh;
+}
+
+.logo-section {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.app-logo {
+  width: 80px;
+  height: 80px;
+}
+
+.app-title {
+  font-size: 2.2rem;
+  color: #333;
+  margin-top: 10px;
+}
+
+.auth-container {
+  width: 100%;
+  max-width: 400px;
+  background-color: rgba(255, 255, 255, 0.97);
+  border-radius: calc(var(--border-radius) + 5px);
+  padding: 30px 25px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.login-heading {
+  text-align: center;
+  font-size: 24px;
+  color: var(--text-color);
+  margin-bottom: 25px;
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 11px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #555;
+}
+
+.primary-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #0d6efd, #0099ff);
+  color: #fff;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.primary-btn:hover,
+.primary-btn:focus {
+  background: linear-gradient(135deg, #0b5ed7, #0077cc);
+  outline: none;
+}
+
+.form-footer {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .auth-container {
+    padding: 20px 15px;
+  }
+  .app-title {
+    font-size: 1.8rem;
+  }
+  .app-logo {
+    width: 60px;
+    height: 60px;
+  }
+}

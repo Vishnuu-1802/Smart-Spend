@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Welcome to Smart Spend</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-image: url('/images/expense-bg.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #fff;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow-x: hidden;
+    }
+    .top-nav {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      display: flex;
+      gap: 10px;
+      z-index: 10;
+    }
+    .top-nav a {
+      text-decoration: none;
+      background-color: #00bfff;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+    .top-nav a:hover,
+    .top-nav a:focus {
+      background-color: #009acd;
+      outline: none;
+    }
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+    }
+    .highlight {
+      color: #ffe600;
+    }
+    .quotes {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+      background-color: rgba(0, 0, 0, 0.4);
+      padding: 20px;
+      border-radius: 12px;
+      user-select: none;
+    }
+    .quotes p {
+      margin-bottom: 1rem;
+    }
+    .images-row {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    .images-row img {
+      width: 120px;
+      height: 120px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      object-fit: cover;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    .images-row img:hover,
+    .images-row img:focus {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+      outline: none;
+    }
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2.2rem;
+        padding: 0 15px;
+      }
+      .quotes {
+        font-size: 1rem;
+        padding: 15px;
+        margin: 20px;
+      }
+      .images-row {
+        flex-direction: column;
+        gap: 20px;
+      }
+      .images-row img {
+        width: 100px;
+        height: 100px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav" aria-label="Main navigation">
+    <a href="/login" tabindex="0">Login</a>
+    <a href="/signup" tabindex="0">Sign Up</a>
+  </nav>
+
+  <main role="main" aria-labelledby="main-heading">
+    <h1 id="main-heading">
+      Welcome to <span class="highlight">Smart Spend 💸</span>
+    </h1>
+
+    <section class="quotes" aria-live="polite">
+      <p>“Your wallet speaks your habits. Make sure it's saying something smart.”</p>
+      <p>“Discipline is choosing between what you want now and what you want most. Let your spending reflect your goals.”</p>
+      <p>“Every rupee you track today builds the foundation for financial freedom tomorrow.”</p>
+    </section>
+
+    <section class="images-row" aria-label="Smart Spending Features">
+      <img src="/images/save-money.jpg" alt="Save Money" tabindex="0" />
+      <img src="/images/track-expenses.jpg" alt="Track Expenses" tabindex="0" />
+      <img src="/images/grow-wealth.jpg" alt="Grow Wealth" tabindex="0" />
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard - Smart Spend</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9fbfc;
+      display: flex;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+    aside.sidebar {
+      width: 260px;
+      background: linear-gradient(135deg, #004d40 70%, #26a69a 100%);
+      color: white;
+      padding: 40px 20px 20px 20px;
+      height: 100vh;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    aside.sidebar img {
+      width: 110px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    aside.sidebar h3 {
+      margin: 10px 0 5px 0;
+      font-size: 1.3rem;
+      letter-spacing: 1px;
+      text-align: center;
+      word-break: break-word;
+    }
+    aside.sidebar p {
+      margin: 0 0 30px 0;
+      font-size: 1rem;
+      opacity: 0.8;
+      word-break: break-word;
+      text-align: center;
+    }
+    .nav-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 18px;
+      text-align: left;
+      margin: 18px 0;
+      width: 100%;
+      cursor: pointer;
+      padding: 16px 18px;
+      border-radius: 8px;
+      transition: background 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      user-select: none;
+    }
+    .nav-btn.active,
+    .nav-btn:hover,
+    .nav-btn:focus {
+      background-color: #00695c;
+      outline: none;
+    }
+    .logout-btn {
+      background-color: #d32f2f;
+      color: white;
+      padding: 14px;
+      border: none;
+      cursor: pointer;
+      margin-top: auto;
+      width: 100%;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+      transition: background 0.3s;
+    }
+    .logout-btn:hover,
+    .logout-btn:focus {
+      background-color: #b71c1c;
+      outline: none;
+    }
+    main.main {
+      flex-grow: 1;
+      padding: 50px 60px;
+      background: #e7e2e2;
+      min-height: 100vh;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+    .dashboard-section {
+      display: none;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+      padding: 40px 36px;
+      margin: 0 auto 40px auto;
+      min-height: 320px;
+      max-width: 900px;
+    }
+    .dashboard-section.active {
+      display: block;
+      animation: fadeIn 0.4s ease forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    h2 {
+      margin-top: 0;
+      margin-bottom: 30px;
+      font-size: 2rem;
+      color: #004d40;
+      letter-spacing: 1px;
+      text-align: center;
+    }
+    form#expenseForm {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    form#expenseForm input,
+    form#expenseForm button {
+      padding: 14px;
+      font-size: 1.1rem;
+      border-radius: 8px;
+      border: 1px solid #b2dfdb;
+      outline-offset: 2px;
+      transition: border 0.3s ease;
+    }
+    form#expenseForm input:focus {
+      border-color: #26a69a;
+      outline: 2px solid #26a69a;
+    }
+    form#expenseForm button {
+      background: #004d40;
+      color: white;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    form#expenseForm button:hover,
+    form#expenseForm button:focus {
+      background: #00796b;
+      outline: none;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      background: #f5f5f5;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.04);
+    }
+    th, td {
+      padding: 18px 12px;
+      border-bottom: 1px solid #e0e0e0;
+      text-align: left;
+      font-size: 1.05rem;
+      word-break: break-word;
+    }
+    th {
+      background: #e0f2f1;
+      color: #004d40;
+      font-weight: 600;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    #expenseChart {
+      margin: 0 auto;
+      display: block;
+      background: #d3d0d0;
+      border-radius: 12px;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.04);
+      padding: 20px;
+      max-width: 700px;
+    }
+    #categoryTotals {
+      margin-top: 20px;
+      font-size: 1.1rem;
+      color: #00695c;
+      text-align: center;
+    }
+    #totalExpense {
+      font-size: 1.5rem;
+      color: #d32f2f;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <aside class="sidebar" role="navigation" aria-label="Dashboard navigation">
+    <img src="/images/avatar.png" alt="User Avatar" />
+    <h3><%= user.name %></h3>
+    <p><%= user.email %></p>
+
+    <button class="nav-btn active" type="button" data-section="form" aria-pressed="true">➕ Add Expense</button>
+    <button class="nav-btn" type="button" data-section="table" aria-pressed="false">📊 Expense Table</button>
+    <button class="nav-btn" type="button" data-section="chart" aria-pressed="false">📈 Expense Chart</button>
+    <button class="nav-btn" type="button" data-section="summary" aria-pressed="false">💰 Total Expenses</button>
+
+    <form action="/logout" method="GET">
+      <button type="submit" class="logout-btn">🚪 Logout</button>
+    </form>
+  </aside>
+
+  <main class="main" role="main">
+    <section id="form" class="dashboard-section active" tabindex="0" aria-label="Add Expense Section">
+      <h2>Add Expense</h2>
+      <form id="expenseForm" action="/add-expense" method="POST" novalidate>
+        <input type="text" name="category" placeholder="Category (e.g., Food 🍔)" required aria-required="true" />
+        <input type="number" name="amount" placeholder="Amount ₹" min="0.01" step="0.01" required aria-required="true" />
+        <input type="date" name="date" required aria-required="true" />
+        <input type="text" name="description" placeholder="Description (optional)" />
+        <button type="submit">Add Expense</button>
+      </form>
+    </section>
+
+    <section id="table" class="dashboard-section" tabindex="0" aria-label="Expense History Section">
+      <h2>Expense History</h2>
+      <table role="table" aria-describedby="expense-description">
+        <thead>
+          <tr>
+            <th scope="col">Category</th>
+            <th scope="col">Amount (₹)</th>
+            <th scope="col">Date</th>
+            <th scope="col">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (expenses && expenses.length > 0) { %>
+            <% expenses.forEach(expense => { %>
+              <tr>
+                <td><%= expense.category %></td>
+                <td><%= expense.amount %></td>
+                <td><%= expense.date %></td>
+                <td><%= expense.description %></td>
+              </tr>
+            <% }); %>
+          <% } else { %>
+            <tr>
+              <td colspan="4" style="text-align:center;">No expenses found.</td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="chart" class="dashboard-section" tabindex="0" aria-label="Expense Chart Section">
+      <h2>Expense Chart</h2>
+      <canvas id="expenseChart" width="700" height="350" role="img" aria-label="Bar chart representing expenses by category"></canvas>
+    </section>
+
+    <section id="summary" class="dashboard-section" tabindex="0" aria-label="Total Expenses Section">
+      <h2>Total Expenses</h2>
+      <div id="categoryTotals" aria-live="polite"></div>
+      <h3>Daily Total:</h3>
+      <p id="totalExpense">₹0</p>
+    </section>
+  </main>
+
+  <script>
+    const expenses = <%- JSON.stringify(expenses || []) %>;
+
+    const navButtons = document.querySelectorAll('.nav-btn');
+    const dashboardSections = document.querySelectorAll('.dashboard-section');
+
+    navButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const sectionId = button.getAttribute('data-section');
+        dashboardSections.forEach(section => {
+          const isActive = section.id === sectionId;
+          section.classList.toggle('active', isActive);
+          if (isActive) section.focus();
+        });
+        navButtons.forEach(btn => {
+          const isCurrent = btn === button;
+          btn.classList.toggle('active', isCurrent);
+          btn.setAttribute('aria-pressed', isCurrent.toString());
+        });
+
+        // Render chart and totals when relevant sections become active
+        if (sectionId === 'chart' || sectionId === 'summary') {
+          renderExpenseChart(expenses);
+        }
+      });
+    });
+
+    // Initial chart and total render on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      renderExpenseChart(expenses);
+    });
+  </script>
+  <script src="/js/chart.js"></script>
+</body>
+</html>

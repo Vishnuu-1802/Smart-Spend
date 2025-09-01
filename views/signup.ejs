@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign Up - Smart Spend</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body class="auth-page" style="background-image: url('/images/bg.png');">
+
+  <main class="auth-container" role="main" aria-labelledby="signupHeading" tabindex="0">
+    <div class="logo-section" aria-label="Application Logo and Title">
+      <img src="/images/logo.png" alt="Smart Spend Logo" class="app-logo" />
+      <h1 class="app-title">Smart Spend 💰</h1>
+    </div>
+
+    <h2 id="signupHeading" class="login-heading">Sign Up</h2>
+
+    <% if (error) { %>
+      <p role="alert" style="color: red; text-align: center; margin-bottom: 16px;"><%= error %></p>
+    <% } %>
+
+    <form id="signupForm" action="/signup" method="POST" novalidate>
+      <label for="name" class="sr-only">Full Name</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        placeholder="Full Name"
+        required
+        autocomplete="name"
+        aria-required="true"
+      />
+
+      <label for="email" class="sr-only">Email address</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="Email"
+        required
+        autocomplete="email"
+        aria-required="true"
+      />
+
+      <div class="password-wrapper" style="position: relative; display: inline-flex; width: 100%; max-width: 400px;">
+  <input
+    type="password"
+    id="loginPassword"
+    name="password"
+    placeholder="Password (min. 6 characters)"
+    required
+    minlength="6"
+    autocomplete="current-password"
+    aria-required="true"
+    style="flex: 1 1 auto; padding-right: 40px;"
+  />
+  <button
+    type="button"
+    id="togglePasswordIcon"
+    class="toggle-password"
+    onclick="togglePassword('loginPassword', 'togglePasswordIcon')"
+    aria-label="Toggle password visibility"
+    aria-pressed="false"
+    style="border: none; background: transparent; position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; font-size: 1.2rem; padding: 0; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;"
+  >
+    👁️
+  </button>
+</div>
+      <button type="submit" class="primary-btn" style="width: 100%;">Sign Up</button>
+    </form>
+
+    <div class="form-footer" style="margin-top: 24px; text-align: center;">
+      <p>Already have an account? <a href="/login">Login</a></p>
+    </div>
+  </main>
+
+  <script>
+    function togglePassword(inputId, iconId) {
+      const input = document.getElementById(inputId);
+      const icon = document.getElementById(iconId);
+      const isPassword = input.type === 'password';
+
+      input.type = isPassword ? 'text' : 'password';
+      icon.textContent = isPassword ? '🙈' : '👁️';
+      icon.setAttribute('aria-pressed', isPassword ? 'true' : 'false');
+    }
+  </script>
+
+</body>
+</html>
